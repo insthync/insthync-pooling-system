@@ -10,7 +10,6 @@ namespace Insthync.PoolingSystem
         protected static Dictionary<string, PoolingSystem> poolGroups = new Dictionary<string, PoolingSystem>();
         public GameObject poolingObject;
         public string poolGroupName;
-        public List<GameObject> pooledObjects;
         public int startPoolSize = 100;
         public bool autoResize = false;
         [Range(0, 1000)]
@@ -18,6 +17,7 @@ namespace Insthync.PoolingSystem
         public bool createPoolOnAwake;
         public bool includedInGroup;
 
+        protected List<GameObject> pooledObjects;
         protected List<GameObject> availableObjects;
 
         protected static GameObject poolingContainer;
