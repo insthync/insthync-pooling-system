@@ -6,33 +6,20 @@ namespace Insthync.PoolingSystem
     {
         public ParticleSystem particles;
         public AudioSource audioSource;
-
+        EffectsDisabler effectsDisabler;
         void Awake()
         {
-            if (particles == null)
-                particles = GetComponentInChildren<ParticleSystem>();
-            if (audioSource == null)
-                audioSource = GetComponentInChildren<AudioSource>();
-            if (particles == null && audioSource == null)
-                Destroy(gameObject);
+            effectsDisabler = GetComponent<EffectsDisabler>();
+            if (effectsDisabler == null)
+                effectsDisabler = gameObject.AddComponent<EffectsDisabler>();
+            effectsDisabler.particles = particles;
+            effectsDisabler.audioSource = audioSource;
+            effectsDisabler.onDisable.AddListener(OnDisableEvent);
         }
 
-        void OnEnable()
+        void OnDisableEvent()
         {
-            if (particles != null)
-                particles.Play(true);
-            if (audioSource != null)
-                audioSource.Play();
-        }
-
-        void Update()
-        {
-            if ((particles == null || !particles.IsAlive(true)) &&
-                (audioSource == null || !audioSource.isPlaying))
-            {
-                transform.parent = poolingSystem.transform;
-                gameObject.SetActive(false);
-            }
+            transform.parent = poolingSystem.transform;
         }
     }
 }
