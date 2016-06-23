@@ -4,23 +4,20 @@ namespace Insthync.PoolingSystem
 {
     public class PoolObjectTimingDisabler : PoolObject
     {
-        float timer = 0;
         public float disableTime;
-
-        void OnEnable()
+        TimingDisabler timeDisabler;
+        void Awake()
         {
-            timer = 0;
+            timeDisabler = GetComponent<TimingDisabler>();
+            if (timeDisabler == null)
+                timeDisabler = gameObject.AddComponent<TimingDisabler>();
+            timeDisabler.disableTime = disableTime;
+            timeDisabler.onDisable.AddListener(OnDisableEvent);
         }
 
-        void Update()
+        void OnDisableEvent()
         {
-            timer += Time.deltaTime;
-
-            if (timer > disableTime)
-            {
-                transform.parent = poolingSystem.transform;
-                gameObject.SetActive(false);
-            }
+            transform.parent = poolingSystem.transform;
         }
     }
 }
