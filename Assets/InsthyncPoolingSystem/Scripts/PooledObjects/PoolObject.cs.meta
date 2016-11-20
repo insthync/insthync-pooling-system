@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d96d7286ab4f9c4282e0f2be401aeee
+guid: 52e7b19a284ccaf4990f03bfd70da4c5
 labels:
 - ObjectPool
 - Pooling
@@ -9,3 +9,5 @@ MonoImporter:
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
