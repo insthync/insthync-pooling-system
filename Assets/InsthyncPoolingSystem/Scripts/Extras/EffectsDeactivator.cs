@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
 
 namespace Insthync.PoolingSystem
 {
-    public class EffectsDisabler : MonoBehaviour
+    public class EffectsDeactivator : BaseDeactivator
     {
         public ParticleSystem particles;
         public AudioSource audioSource;
-        public UnityEvent onDisable;
 
         void Awake()
         {
@@ -20,28 +17,31 @@ namespace Insthync.PoolingSystem
                 Destroy(gameObject);
         }
 
-        void OnEnable()
+        protected override void OnEnable()
         {
             if (particles != null)
                 particles.Play(true);
             if (audioSource != null)
                 audioSource.Play();
+            base.OnEnable();
         }
 
-        void Update()
+        protected override void OnDisable()
         {
-            if ((particles == null || !particles.IsAlive(true)) &&
-                (audioSource == null || !audioSource.isPlaying))
-            {
-                RaiseOnDisable();
-                gameObject.SetActive(false);
-            }
+            if (particles != null)
+                particles.Stop(true);
+            if (audioSource != null)
+                audioSource.Stop();
+            base.OnDisable();
         }
 
-        void RaiseOnDisable()
+        public override void UpdateLogic()
         {
-            if (onDisable != null)
-                onDisable.Invoke();
+        }
+
+        public override bool IsDeactivating()
+        {
+            return ((particles == null || !particles.IsAlive(true)) && (audioSource == null || !audioSource.isPlaying));
         }
     }
 }

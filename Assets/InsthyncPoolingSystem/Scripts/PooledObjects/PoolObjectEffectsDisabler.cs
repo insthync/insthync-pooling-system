@@ -2,24 +2,22 @@
 
 namespace Insthync.PoolingSystem
 {
-    public class PoolObjectParticleSystemDisabler : PoolObject
+    public class PoolObjectEffectsDisabler : PoolObject
     {
         public ParticleSystem particles;
         public AudioSource audioSource;
-        EffectsDisabler effectsDisabler;
+        EffectsDeactivator effectsDisabler;
         void Awake()
         {
-            effectsDisabler = GetComponent<EffectsDisabler>();
+            if (particles == null)
+                particles = GetComponentInChildren<ParticleSystem>();
+            if (audioSource == null)
+                audioSource = GetComponentInChildren<AudioSource>();
+            effectsDisabler = GetComponent<EffectsDeactivator>();
             if (effectsDisabler == null)
-                effectsDisabler = gameObject.AddComponent<EffectsDisabler>();
+                effectsDisabler = gameObject.AddComponent<EffectsDeactivator>();
             effectsDisabler.particles = particles;
             effectsDisabler.audioSource = audioSource;
-            effectsDisabler.onDisable.AddListener(OnDisableEvent);
-        }
-
-        void OnDisableEvent()
-        {
-            transform.parent = poolingSystem.transform;
         }
     }
 }

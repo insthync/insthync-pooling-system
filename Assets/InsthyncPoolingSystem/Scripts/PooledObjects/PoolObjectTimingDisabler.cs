@@ -5,19 +5,13 @@ namespace Insthync.PoolingSystem
     public class PoolObjectTimingDisabler : PoolObject
     {
         public float disableTime;
-        TimingDisabler timeDisabler;
+        TimingDeactivator timeDisabler;
         void Awake()
         {
-            timeDisabler = GetComponent<TimingDisabler>();
+            timeDisabler = GetComponent<TimingDeactivator>();
             if (timeDisabler == null)
-                timeDisabler = gameObject.AddComponent<TimingDisabler>();
-            timeDisabler.disableTime = disableTime;
-            timeDisabler.onDisable.AddListener(OnDisableEvent);
-        }
-
-        void OnDisableEvent()
-        {
-            transform.parent = poolingSystem.transform;
+                timeDisabler = gameObject.AddComponent<TimingDeactivator>();
+            timeDisabler.deactivatingTime = disableTime;
         }
     }
 }

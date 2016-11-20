@@ -53,7 +53,7 @@ namespace Insthync.PoolingSystem
                     if (createPoolImmediately)
                         poolSystem.InstantiatePool();
 
-                    poolSystemObject.transform.SetParent(PoolingContainer.transform, false);
+                    poolSystemObject.transform.SetParent(PoolingContainer.transform);
 
                     return poolSystem;
                 }
@@ -68,10 +68,17 @@ namespace Insthync.PoolingSystem
                 if (createPoolImmediately)
                     poolSystem.InstantiatePool();
 
-                poolSystemObject.transform.SetParent(PoolingContainer.transform, false);
+                poolSystemObject.transform.SetParent(PoolingContainer.transform);
 
                 return poolSystem;
             }
+        }
+
+        public static PoolingSystem GetPoolByGroup(string groupName)
+        {
+            if (poolGroups.ContainsKey(groupName))
+                return poolGroups[groupName];
+            return null;
         }
 
         public static void ClearPoolGroup()
@@ -164,7 +171,7 @@ namespace Insthync.PoolingSystem
         GameObject NewPooledObjects()
         {
             GameObject newObject = Instantiate(poolingObject);
-            newObject.transform.parent = transform;
+            newObject.transform.SetParent(transform);
             PoolObject pooledObject = newObject.GetComponent<PoolObject>();
             if (pooledObject == null)
                 pooledObject = newObject.AddComponent<PoolObject>();

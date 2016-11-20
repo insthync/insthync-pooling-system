@@ -9,12 +9,17 @@ namespace Insthync.PoolingSystem
 
         void OnDisable()
         {
-            transform.position = Vector3.zero;
+            if (poolingSystem == null)
+            {
+                Debug.LogWarning("There are no pooling system for " + name);
+                return;
+            }
+
+            transform.SetParent(poolingSystem.transform);
+            transform.localPosition = Vector3.zero;
 
             if (poolingSystem)
                 poolingSystem.AddToAvailableObjects(gameObject);
-            else
-                Debug.LogWarning("There are no pooling system for " + name);
         }
     }
 }
