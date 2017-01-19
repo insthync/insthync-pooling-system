@@ -2,16 +2,17 @@
 
 namespace Insthync.PoolingSystem
 {
+    [RequireComponent(typeof(TimingDeactivator))]
     public class PoolObjectTimingDisabler : PoolObject
     {
         public float disableTime;
-        TimingDeactivator timeDisabler;
+        TimingDeactivator timingDeactivator;
         void Awake()
         {
-            timeDisabler = GetComponent<TimingDeactivator>();
-            if (timeDisabler == null)
-                timeDisabler = gameObject.AddComponent<TimingDeactivator>();
-            timeDisabler.deactivatingTime = disableTime;
+            timingDeactivator = GetComponent<TimingDeactivator>();
+            if (timingDeactivator == null)
+                timingDeactivator = gameObject.AddComponent<TimingDeactivator>();
+            timingDeactivator.deactivatingTime = disableTime;
         }
     }
 }
