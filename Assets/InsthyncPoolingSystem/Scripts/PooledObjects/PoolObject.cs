@@ -4,7 +4,7 @@ namespace Insthync.PoolingSystem
 {
     public class PoolObject : MonoBehaviour
     {
-        [HideInInspector]
+        [System.NonSerialized]
         public PoolingSystem poolingSystem;
 
         void OnDisable()
