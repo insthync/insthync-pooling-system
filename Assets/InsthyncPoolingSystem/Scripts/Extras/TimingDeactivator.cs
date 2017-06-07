@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 namespace Insthync.PoolingSystem
 {
     public class TimingDeactivator : BaseDeactivator

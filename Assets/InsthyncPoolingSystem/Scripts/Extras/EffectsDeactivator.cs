@@ -7,8 +7,9 @@ namespace Insthync.PoolingSystem
         public ParticleSystem particles;
         public AudioSource audioSource;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (particles == null)
                 particles = GetComponentInChildren<ParticleSystem>();
             if (audioSource == null)

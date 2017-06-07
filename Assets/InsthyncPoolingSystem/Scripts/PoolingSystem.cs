@@ -138,11 +138,11 @@ namespace Insthync.PoolingSystem
             GameObject result = null;
             if (pooledObjects.Count == 0)
                 Debug.LogWarning("Pooled object " + poolGroupName + ", the pool has not been instantiated but you are trying to retrieve an object!");
-            
+
             for (int i = availableObjects.Count - 1; i >= 0; --i)
             {
                 GameObject availableObject = availableObjects[i];
-                if (availableObject  == null)
+                if (availableObject == null)
                 {
                     Debug.LogError("Pooled object " + poolGroupName + " has missing objects in its pool! Are you accidentally destroying any GameObjects retrieved from the pool?");
                     continue;

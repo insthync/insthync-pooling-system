@@ -7,13 +7,22 @@ namespace Insthync.PoolingSystem
     {
         public bool isForceDeactivate;
         public UnityEvent onDisable;
+        private PoolObject poolObject;
+        protected virtual void Awake()
+        {
+            poolObject = GetComponent<PoolObject>();
+        }
+
         protected virtual void Update()
         {
             UpdateLogic();
             if (IsDeactivating() || isForceDeactivate)
             {
                 isForceDeactivate = false;
-                gameObject.SetActive(false);
+                if (poolObject != null)
+                    poolObject.Disable();
+                else
+                    gameObject.SetActive(false);
             }
         }
 

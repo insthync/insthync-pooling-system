@@ -7,7 +7,7 @@ namespace Insthync.PoolingSystem
         [System.NonSerialized]
         public PoolingSystem poolingSystem;
 
-        void OnDisable()
+        public void Disable()
         {
             if (poolingSystem == null)
             {
@@ -20,6 +20,8 @@ namespace Insthync.PoolingSystem
 
             if (poolingSystem)
                 poolingSystem.AddToAvailableObjects(gameObject);
+
+            gameObject.SetActive(false);
         }
     }
 }
